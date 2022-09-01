@@ -1,5 +1,7 @@
 client-gif:
   name: gif
+  category-rich: rich
+  category-broken: broken
   token: p247iQfyW7b9WG1kymhXqbnxX43SRer4
   post:
     baseUrl: https://api.giphy.com/v1/gifs/random
@@ -7,7 +9,5 @@ client-gif:
 client-exchange:
   name: exchange
   token: 0f4a4899ab5b42509ad26286b0e95fbf
-  category-one: rich
-  category-two: broken
   post:
     baseUrl: https://openexchangerates.org/api

@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class Images {
 
-   private final Fixed_height_downsampled fixed_height_downsampled;
+   private Fixed_height_downsampled fixed_height_downsampled;
 }

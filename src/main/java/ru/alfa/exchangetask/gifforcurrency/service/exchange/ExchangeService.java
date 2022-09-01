@@ -6,5 +6,5 @@ public interface ExchangeService {
 
     Exchange getCurrencyNow();
 
-    Exchange getCurrencyHistorical();
+    Exchange getCurrencyHistorical(String date);
 }

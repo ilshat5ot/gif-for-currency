@@ -4,5 +4,5 @@ import ru.alfa.exchangetask.gifforcurrency.model.Gif;
 
 public interface GifService {
 
-    Gif getGif();
+    Gif getGif(String tag);
 }
