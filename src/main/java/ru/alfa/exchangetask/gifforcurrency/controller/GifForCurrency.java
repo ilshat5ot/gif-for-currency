@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.alfa.exchangetask.gifforcurrency.model.Gif;
 
 @RestController
-public class MainController {
+public class GifForCurrency {
 
     @GetMapping
     public Gif get(){
