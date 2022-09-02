@@ -1,4 +1,4 @@
-package ru.alfa.exchangetask.gifforcurrency.service.mix;
+package ru.alfa.exchangetask.gifforcurrency.service.main;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import ru.alfa.exchangetask.gifforcurrency.service.gif.GifService;
 import java.time.LocalDate;
 
 @Service
-public class MixGifExchangeServiceImpl implements MixGifExchangeService {
+public class GifForCurrencyServiceImpl implements GifForCurrencyService {
 
     @Value("${client-gif.category-rich}")
     private String richTag;
@@ -19,7 +19,7 @@ public class MixGifExchangeServiceImpl implements MixGifExchangeService {
     private final ExchangeService exchangeService;
     private final GifService gifService;
 
-    public MixGifExchangeServiceImpl(ExchangeService exchangeService, GifService gifService) {
+    public GifForCurrencyServiceImpl(ExchangeService exchangeService, GifService gifService) {
         this.exchangeService = exchangeService;
         this.gifService = gifService;
     }
@@ -30,11 +30,13 @@ public class MixGifExchangeServiceImpl implements MixGifExchangeService {
     }
 
     private boolean compareCurrency(String currency) {
-        Exchange exchangeNow = exchangeService.getCurrencyNow();
-        Exchange exchangeHistorical = exchangeService.getCurrencyHistorical(LocalDate.now().minusDays(1).toString());
+        Exchange exchangeNow = exchangeService.getCurrency(LocalDate.now().toString());
+        Exchange exchangeHistorical = exchangeService.getCurrency(LocalDate.now().minusDays(1).toString());
 
         Double nowCurrency = exchangeNow.getRates().get(currency);
         Double historicalCurrency = exchangeHistorical.getRates().get(currency);
+        System.out.println("now " + nowCurrency);
+        System.out.println("historical " + historicalCurrency);
 
         return nowCurrency > historicalCurrency;
     }

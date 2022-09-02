@@ -9,9 +9,6 @@ import ru.alfa.exchangetask.gifforcurrency.model.Exchange;
 @FeignClient(name = "${client-exchange.name}", url = "${client-exchange.post.baseUrl}")
 public interface ExchangeFeignClient {
 
-    @GetMapping("/latest.json")
-    Exchange getCurrencyNow(@RequestParam String app_id);
-
     @GetMapping("/historical/{date}.json")
-    Exchange getCurrencyHistorical (@PathVariable String date, @RequestParam String app_id);
+    Exchange getCurrency (@PathVariable String date, @RequestParam String app_id);
 }

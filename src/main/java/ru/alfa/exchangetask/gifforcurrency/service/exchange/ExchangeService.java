@@ -4,7 +4,5 @@ import ru.alfa.exchangetask.gifforcurrency.model.Exchange;
 
 public interface ExchangeService {
 
-    Exchange getCurrencyNow();
-
-    Exchange getCurrencyHistorical(String date);
+    Exchange getCurrency(String date);
 }

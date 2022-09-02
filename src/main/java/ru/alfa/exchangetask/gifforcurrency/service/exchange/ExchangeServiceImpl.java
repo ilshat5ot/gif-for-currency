@@ -17,12 +17,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     @Override
-    public Exchange getCurrencyNow() {
-        return exchangeFeignClient.getCurrencyNow(token);
-    }
-
-    @Override
-    public Exchange getCurrencyHistorical(String date) {
-        return exchangeFeignClient.getCurrencyHistorical(date, token);
+    public Exchange getCurrency(String date) {
+        return exchangeFeignClient.getCurrency(date, token);
     }
 }

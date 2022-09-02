@@ -4,17 +4,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.alfa.exchangetask.gifforcurrency.model.Exchange;
 import ru.alfa.exchangetask.gifforcurrency.model.Gif;
-import ru.alfa.exchangetask.gifforcurrency.service.mix.MixGifExchangeService;
+import ru.alfa.exchangetask.gifforcurrency.service.main.GifForCurrencyService;
 
 @RestController
 @RequestMapping("/currency")
-public class GifForCurrency {
+public class GifForCurrencyController {
 
-    private final MixGifExchangeService mixGifExchangeService;
+    private final GifForCurrencyService mixGifExchangeService;
 
-    public GifForCurrency(MixGifExchangeService mixGifExchangeService) {
+    public GifForCurrencyController(GifForCurrencyService mixGifExchangeService) {
         this.mixGifExchangeService = mixGifExchangeService;
     }
 
