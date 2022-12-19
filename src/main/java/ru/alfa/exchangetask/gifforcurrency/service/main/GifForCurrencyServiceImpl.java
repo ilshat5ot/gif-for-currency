@@ -1,13 +1,16 @@
 package ru.alfa.exchangetask.gifforcurrency.service.main;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.alfa.exchangetask.gifforcurrency.model.Exchange;
-import ru.alfa.exchangetask.gifforcurrency.model.Gif;
 import ru.alfa.exchangetask.gifforcurrency.service.exchange.ExchangeService;
 import ru.alfa.exchangetask.gifforcurrency.service.gif.GifService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class GifForCurrencyServiceImpl implements GifForCurrencyService {
@@ -25,8 +28,26 @@ public class GifForCurrencyServiceImpl implements GifForCurrencyService {
     }
 
     @Override
-    public Gif getGifForCurrency(String currency) {
-        return compareCurrency(currency) ? gifService.getGif(richTag) : gifService.getGif(brokenTag);
+    public ResponseEntity<Map> getGifForCurrency(String currency) {
+        if(compareCurrency(currency)) {
+            return ResponseEntity.ok(Map.of("url", gifService.getGif(richTag),
+                    "category", richTag));
+        } else return ResponseEntity.ok(Map.of("url", gifService.getGif(brokenTag),
+                "category", brokenTag));
+    }
+
+    @Override
+    public ResponseEntity<List> getRates() {
+        return ResponseEntity.ok(getRatesList());
+    }
+
+    private List<String> getRatesList() {
+        Exchange exchange = exchangeService.getCurrency(LocalDate.now().toString());
+
+        List<String> listRates = new ArrayList<>();
+        listRates.addAll(exchange.getRates().keySet());
+
+        return listRates;
     }
 
     private boolean compareCurrency(String currency) {
@@ -35,9 +56,6 @@ public class GifForCurrencyServiceImpl implements GifForCurrencyService {
 
         Double nowCurrency = exchangeNow.getRates().get(currency);
         Double historicalCurrency = exchangeHistorical.getRates().get(currency);
-        System.out.println("now " + nowCurrency);
-        System.out.println("historical " + historicalCurrency);
-
         return nowCurrency > historicalCurrency;
     }
 }

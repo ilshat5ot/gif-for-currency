@@ -1,8 +1,13 @@
 package ru.alfa.exchangetask.gifforcurrency.service.main;
 
-import ru.alfa.exchangetask.gifforcurrency.model.Gif;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
+import java.util.Map;
 
 public interface GifForCurrencyService {
 
-    Gif getGifForCurrency(String currency);
+    ResponseEntity<Map> getGifForCurrency(String currency);
+
+    ResponseEntity<List> getRates();
 }

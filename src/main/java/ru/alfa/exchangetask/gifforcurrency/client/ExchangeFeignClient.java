@@ -11,4 +11,5 @@ public interface ExchangeFeignClient {
 
     @GetMapping("/historical/{date}.json")
     Exchange getCurrency (@PathVariable String date, @RequestParam String app_id);
+
 }

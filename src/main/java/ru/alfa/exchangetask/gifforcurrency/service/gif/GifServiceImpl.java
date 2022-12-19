@@ -3,7 +3,8 @@ package ru.alfa.exchangetask.gifforcurrency.service.gif;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.alfa.exchangetask.gifforcurrency.client.GifFeignClient;
-import ru.alfa.exchangetask.gifforcurrency.model.Gif;
+
+import java.util.Map;
 
 @Service
 public class GifServiceImpl implements GifService {
@@ -17,7 +18,12 @@ public class GifServiceImpl implements GifService {
     }
 
     @Override
-    public Gif getGif(String tag) {
-        return gifFeignClient.getGif(token, tag);
+    public String getGif(String tag) {
+        Map responseGif = gifFeignClient.getGif(token, tag);
+        Map data = (Map) responseGif.get("data");
+        Map images = (Map) data.get("images");
+        Map fixedHeightDownSampled = (Map) images.get("fixed_height_downsampled");
+
+        return fixedHeightDownSampled.get("url").toString();
     }
 }
