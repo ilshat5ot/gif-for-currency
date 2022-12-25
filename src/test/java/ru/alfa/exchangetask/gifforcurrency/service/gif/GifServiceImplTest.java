@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,6 +41,7 @@ class GifServiceImplTest {
     public void testResponseForGifServer() {
         when(gifFeignClient.getGif(null, "rich")).thenReturn(responseGifServer);
         String url = gifService.getGif("rich");
+
         verify(gifFeignClient,times(1)).getGif(null, "rich");
         assertEquals(EXPECTED_URL, url);
     }

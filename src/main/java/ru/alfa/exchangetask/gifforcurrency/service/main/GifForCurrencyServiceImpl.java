@@ -29,7 +29,10 @@ public class GifForCurrencyServiceImpl implements GifForCurrencyService {
 
     @Override
     public ResponseEntity<Map> getGifForCurrency(String currency) {
-        if(compareCurrency(currency)) {
+        Exchange exchangeNow = exchangeService.getCurrency(LocalDate.now().toString());
+        Exchange exchangeHistorical = exchangeService.getCurrency(LocalDate.now().minusDays(1).toString());
+
+        if(compareCurrency(currency, exchangeNow, exchangeHistorical)) {
             return ResponseEntity.ok(Map.of("url", gifService.getGif(richTag),
                     "category", richTag));
         } else return ResponseEntity.ok(Map.of("url", gifService.getGif(brokenTag),
@@ -38,22 +41,18 @@ public class GifForCurrencyServiceImpl implements GifForCurrencyService {
 
     @Override
     public ResponseEntity<List> getRates() {
-        return ResponseEntity.ok(getRatesList());
-    }
-
-    private List<String> getRatesList() {
         Exchange exchange = exchangeService.getCurrency(LocalDate.now().toString());
-
-        List<String> listRates = new ArrayList<>();
-        listRates.addAll(exchange.getRates().keySet());
-
-        return listRates;
+        List<String>  listRates = getRatesList(exchange);
+        return ResponseEntity.ok(listRates);
     }
 
-    private boolean compareCurrency(String currency) {
-        Exchange exchangeNow = exchangeService.getCurrency(LocalDate.now().toString());
-        Exchange exchangeHistorical = exchangeService.getCurrency(LocalDate.now().minusDays(1).toString());
+    private List<String> getRatesList(Exchange exchange) {
+        List<String> ratesList = new ArrayList<>();
+        ratesList.addAll(exchange.getRates().keySet());
+        return ratesList;
+    }
 
+    private boolean compareCurrency(String currency, Exchange exchangeNow, Exchange exchangeHistorical) {
         Double nowCurrency = exchangeNow.getRates().get(currency);
         Double historicalCurrency = exchangeHistorical.getRates().get(currency);
         return nowCurrency > historicalCurrency;
