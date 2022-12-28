@@ -25,7 +25,7 @@ public class GifForCurrencyController {
         return mixGifExchangeService.getGifForCurrency(currency);
     }
 
-    @RequestMapping("get-rates")
+    @RequestMapping("/get-rates")
     public ResponseEntity<List> getRates() {
         return mixGifExchangeService.getRates();
     }
